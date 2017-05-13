@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Application</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="button">Login</string>
+    <string name="hint_username">Masukkan username</string>
+    <string name="hint_password">Masukkan password</string>
+    <string name="dummy">Test</string>
+</resources>
