@@ -1,4 +1,4 @@
-package com.example.saputra.application.mainview;
+package com.example.saputra.application;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.saputra.application.R;
 import com.example.saputra.application.adapter.HomeAdapter;
+import com.example.saputra.application.adapter.RetroAdapter;
 import com.example.saputra.application.interactor.HomeInterface;
 import com.example.saputra.application.mainhome.HomePresenter;
 import com.example.saputra.application.model.ExampleRetro;
@@ -31,11 +31,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView textView;
     private RecyclerView mRecyclerView;
-    private HomeAdapter mHomeAdapter;
     private HomeInterface mHomeInterface;
-    private ArrayList<HomeModel> mHomeModel;
+    private ArrayList<HomeModel> mHomeModels;
 
     private List<ExampleRetro> mExampleRetros;
+    private RetroAdapter mRetroAdapter;
 
     public static final String BASE_URL = "https://private-4e4159-qurrata.apiary-mock.com/";
 
@@ -51,8 +51,8 @@ public class HomeActivity extends AppCompatActivity {
         mTxtUsername.setText("Selamat datang, " + username);
 
         mHomeInterface = new HomePresenter(this);
-        mHomeModel = new ArrayList<>();
-        mHomeInterface.showList(mHomeModel);
+        mHomeModels = new ArrayList<>();
+        mHomeInterface.showList(mHomeModels);
         initView();
         getData();
     }
@@ -60,11 +60,11 @@ public class HomeActivity extends AppCompatActivity {
     private void initView() {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_item);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mHomeAdapter = new HomeAdapter(this, mHomeModel);
-        mRecyclerView.setAdapter(mHomeAdapter);
+
+        getData();
     }
 
     private void getData(){
@@ -79,12 +79,10 @@ public class HomeActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<ExampleRetro>>() {
             @Override
             public void onResponse(Call<List<ExampleRetro>> call, Response<List<ExampleRetro>> response) {
-                // harusnya di adapter
+
                 mExampleRetros = response.body();
-                for(int i=0;i<mExampleRetros.size();i++){
-                    String judul = mExampleRetros.get(i).getJudul();
-                    Toast.makeText(HomeActivity.this, "" + judul, Toast.LENGTH_SHORT).show();
-                }
+                mRetroAdapter = new RetroAdapter(mExampleRetros, getApplicationContext());
+                mRecyclerView.setAdapter(mRetroAdapter);
             }
 
             @Override

@@ -45,6 +45,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+
         return mHomeModels.size();
     }
 
@@ -56,10 +57,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textView1 = (TextView) itemView.findViewById(R.id.tv_nama);
-            textView2 = (TextView) itemView.findViewById(R.id.tv_alamat);
-            textView3 = (TextView) itemView.findViewById(R.id.tv_email);
-            textView4 = (TextView) itemView.findViewById(R.id.tv_noTelp);
+//            textView1 = (TextView) itemView.findViewById(R.id.tv_nama);
+//            textView2 = (TextView) itemView.findViewById(R.id.tv_alamat);
+//            textView3 = (TextView) itemView.findViewById(R.id.tv_email);
+//            textView4 = (TextView) itemView.findViewById(R.id.tv_noTelp);
         }
     }
 }
